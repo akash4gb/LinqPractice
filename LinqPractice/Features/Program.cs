@@ -59,8 +59,29 @@ namespace Features
                 Console.WriteLine(employee.Name);
             }
 
+            //func type deligate with lamda, last param is return type
+            Func<Double> pi = () => 3.1416; // use ()=> ,when no pram is passed
+            Func<int, int> Square = x=>x*x; // use just param x=> , when only one param
+            Func<int, int, int> Area = (x, y) =>
+             {
+                 var temp = x * y;
+                 return temp;
+             };                             //use ()=> , when two or more param and also can use method sbody{}
+
+            Console.WriteLine(pi());
+            Console.WriteLine(Square(3));
+            Console.WriteLine(Area(3,8));
+
+
+            //Action type deligate
+            Action<string> Write = x => Console.WriteLine(x);
+            Write("Action Executed");
+
+
 
         }
+
+      
 
         private static bool NameStartWithS(Employee employee)
         {

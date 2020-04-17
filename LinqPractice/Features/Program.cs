@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Features.CustomLinq;
 
 namespace Features
 {
@@ -23,14 +25,46 @@ namespace Features
             string strExt ="3.2";
             _ = strExt.ToDouble();
 
-            IEnumerator<Employee> enumerator = developers.GetEnumerator();
 
+            //manual foreach
+            IEnumerator<Employee> enumerator = developers.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current.Name);
             }
 
-            
+
+            // using extension method linke linq
+            Console.WriteLine(developers.CustomCount());
+
+            //Named method 
+            foreach (var employee in developers.Where(NameStartWithS))
+            {
+                Console.WriteLine(employee.Name);
+            }
+
+            //Anonymous Method
+            foreach (var employee in developers.Where(
+                delegate (Employee emp)
+                {
+                    return emp.Name.StartsWith("S");
+                }))
+            {
+                Console.WriteLine(employee.Name);
+            }
+
+            //Lamda Expression
+            foreach (var employee in developers.Where(e=>e.Name.StartsWith("S")))
+            {
+                Console.WriteLine(employee.Name);
+            }
+
+
+        }
+
+        private static bool NameStartWithS(Employee employee)
+        {
+            return employee.Name.StartsWith("S");
         }
     }
 
